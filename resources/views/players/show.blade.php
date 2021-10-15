@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $player->name)
+@section('title', $player->first_name)
 
 @section('content')
 <h2>
