@@ -25,4 +25,23 @@
 <span>No Players</span>
 @endforelse
 
+<h5>Comments</h5>
+@forelse($team->comments as $comment)
+{{ $comment->content }}
+@empty
+<span>No comments</span>
+@endforelse
+
+<form class="mt-3" action="{{ route('createComment', ['team' => $team->id]) }}" method="POST">
+    @csrf
+    <div class="form-group">
+        <label for="content">Add comment:</label>
+        <textarea class="form-control" name="content" id="content" cols="30" rows="10"></textarea>
+        @error('content')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
 @endsection

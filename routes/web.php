@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
+
 
 
 /*
@@ -23,6 +25,7 @@ Route::get('/', function () {
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/teams', [TeamController::class, 'index']);
     Route::get('/teams/{team}', [TeamController::class, 'show'])->name('team');
+    Route::post('/teams/{team}/comments', [CommentController::class, 'store'])->name('createComment');
     Route::get('/players/{player}', [PlayerController::class, 'show'])->name('player');
     Route::post('/logout', [AuthController::class, 'logout']);
 });
