@@ -20,13 +20,15 @@ use App\Http\Controllers\AuthController;
 Route::get('/', function () {
     return redirect('/teams');
 });
-
-Route::get('/teams', [TeamController::class, 'index']);
-Route::get('/teams/{team}', [TeamController::class, 'show'])->name('team');
-Route::get('/players/{player}', [PlayerController::class, 'show'])->name('player');
-Route::post('/logout', [AuthController::class, 'logout']);
-
-Route::get('/register', [AuthController::class, 'getRegisterForm']);
-Route::post('/register', [AuthController::class, 'register']);
-Route::get('/login', [AuthController::class, 'getLoginBlade']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/teams', [TeamController::class, 'index']);
+    Route::get('/teams/{team}', [TeamController::class, 'show'])->name('team');
+    Route::get('/players/{player}', [PlayerController::class, 'show'])->name('player');
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('/register', [AuthController::class, 'getRegisterForm']);
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::get('/login', [AuthController::class, 'getLoginBlade']);
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
+});
