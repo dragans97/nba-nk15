@@ -16,9 +16,12 @@ class CommentReceived extends Mailable
      *
      * @return void
      */
-    public function __construct()
+
+    public $comment;
+
+    public function __construct($comment)
     {
-        //
+        $this->comment = $comment;
     }
 
     /**
@@ -28,6 +31,12 @@ class CommentReceived extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->view('emails.comment-received')->with([
+            'team'=>$this->comment->team,
+            'comment'=>$this->comment,
+            'user'=>$this->comment->user,
+        ])
+        ->subject('Comment received')
+        ->from($this->comment->user);;
     }
 }
