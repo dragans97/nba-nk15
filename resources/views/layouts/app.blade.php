@@ -10,7 +10,7 @@
 <body>
     @include('shared.navbar')
     
-    <div class='container my-4'>
+    <div class='container my-2'>
         @if (Session::has('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>{{ Session::get('success') }}</strong>
@@ -18,7 +18,19 @@
             </div>
         @endif
 
-        @yield('content')
+        <div class="row my-2">
+            <div class="col-lg-10 col-sm-12">
+                @yield('content')
+            </div>
+            <div class="col-lg-2 col-sm-12" style="border-left:2px solid;">
+                Teams with news
+                @forelse ($teamsWithNews as $twn)
+                    <a href="{{ route('team', ['team'=>$twn->id]) }}}" class="btn btn-success my-1">{{$twn->name}}</a>
+                @empty
+                    Sorry. Currently there's no teams with posts.
+                @endforelse
+            </div>
+        </div>
     </div>
 </body>
 
