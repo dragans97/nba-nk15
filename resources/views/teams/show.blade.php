@@ -3,6 +3,7 @@
 @section('title', $team->name)
 
 @section('content')
+<a href="{{ route('team-news', ['team' => $team->name])}}" class="btn btn-dark d-block my-2">Show Related News</a>
 <h2>
     {{ $team->name  }}
 </h2>

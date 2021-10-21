@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\News;
+use App\Team;
 use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
@@ -28,10 +29,24 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function filter($team){
+        // DB::listen(function($q) {
+        //     info($q->sql);
+        // });
+
+        $team = Team::where('name', $team)->firstOrFail();
+        $news = $team->news()->with('user')->paginate(4);
+        
+        return view('news.index', compact('news'));
+    }
+
     public function create()
     {
         //
     }
+
+
 
     /**
      * Store a newly created resource in storage.

@@ -7,7 +7,7 @@
    <hr>
   <div class="row">
     @forelse ($news as $item)
-        <article class="col-lg-4 col-sm-12 my-2">
+        <article class="col-lg-4 col-sm-12 my-4">
             <h2 style="font-size: 16pt;">
                 {{$item->title}}
                 <span class="d-block text-muted" style="font-size: 8pt;">{{$item->user->name}}</span>

@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/news', [ NewsController::class, 'index' ]);
     Route::get('/news/{news}', [ NewsController::class, 'show' ])->name('show-article');
+    Route::get('news/team/{team}', [NewsController::class, 'filter'])->name('team-news');
 });
 
 Route::group(['middleware' => 'guest'], function () {
