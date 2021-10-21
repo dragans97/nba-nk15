@@ -23,6 +23,7 @@ class CommentController extends Controller
         $data = $request->validated();
         $data1 = ["team_id" => $team->id, "user_id" => Auth::id()];
         // $team->comments()->create($data);
+
         $comment = Comment::create(array_merge($data, $data1));
 
         return back();
