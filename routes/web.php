@@ -31,6 +31,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/players/{player}', [PlayerController::class, 'show'])->name('player');
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/news', [ NewsController::class, 'index' ]);
+    Route::get('/news/create', [ NewsController::class, 'create' ]);
+    Route::post('/news', [NewsController::class, 'store']);
     Route::get('/news/{news}', [ NewsController::class, 'show' ])->name('show-article');
     Route::get('news/team/{team}', [NewsController::class, 'filter'])->name('team-news');
 });

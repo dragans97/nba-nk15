@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\News;
 use App\Team;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\NewsRequest;
+use Illuminate\Support\Facades\Auth;
 
 class NewsController extends Controller
 {
@@ -43,7 +45,8 @@ class NewsController extends Controller
 
     public function create()
     {
-        //
+        $teams = Team::all();
+        return view('news.create', compact('teams'));
     }
 
 
@@ -54,9 +57,14 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(NewsRequest $request)
     {
-        //
+        $data = $request->validated();
+        $news = Auth::user()->news()->create($data);
+        $news->team()->sync($data['teams']);
+
+        session()->flash('success', 'Thank you for publishing article on www.nba.com');
+        return redirect('/news');
     }
 
     /**
