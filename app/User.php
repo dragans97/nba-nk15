@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+// NE TREBA IMPORTOVATI AKO SU U ISTOM NAMESPACE
+// use App\News;
 
 class User extends Authenticatable
 {
@@ -40,5 +42,9 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function news(){
+        return $this->hasMany(News::class);
     }
 }
